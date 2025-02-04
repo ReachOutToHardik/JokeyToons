@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JokeyToons - 90s Joke Machine</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #ff6b6b;
+        --secondary: #4ecdc4;
+        --accent: #ffd700;
+        --border: 3px solid #000;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #fff9e6
+          url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36zwjjgzhhYWGMYAEYB8RmROaABADeOQ8CXl/xfgAAAABJRU5ErkJggg==");
+        padding: 20px;
+        margin: 0;
+        font-family: "Comic Neue", cursive;
+      }
+
+      .container {
+        background: white;
+        padding: 2rem;
+        border: var(--border);
+        border-radius: 15px;
+        box-shadow: 8px 8px 0 #000;
+        max-width: 600px;
+        width: 90%;
+        margin: 20px auto;
+        position: relative;
+      }
+
+      h1 {
+        color: #ff6b6b;
+        margin: 0 0 1.5rem 0;
+        text-align: center;
+        font-family: "Press Start 2P", cursive;
+        font-size: 2rem;
+        text-shadow: 2px 2px 0 #000;
+        transform: rotate(-3deg);
+      }
+
+      .controls {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      select {
+        padding: 0.8rem;
+        border: var(--border);
+        border-radius: 8px;
+        font-size: 1rem;
+        background: white;
+        flex-grow: 1;
+        font-family: "Comic Neue", cursive;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2'%3e%3cpath d='M6 9l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+      }
+
+      button {
+        padding: 0.8rem 2rem;
+        background: var(--accent);
+        border: var(--border);
+        border-radius: 8px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        font-family: "Comic Neue", cursive;
+        transition: all 0.1s ease;
+        position: relative;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        background: #ffdf4d;
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      .joke-container {
+        background: white;
+        padding: 1.5rem;
+        border: var(--border);
+        border-radius: 8px;
+        margin-top: 1rem;
+        min-height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 1.2rem;
+        line-height: 1.4;
+        position: relative;
+        background-image: linear-gradient(45deg, #fff9e6 25%, transparent 25%),
+          linear-gradient(-45deg, #fff9e6 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, #fff9e6 75%),
+          linear-gradient(-45deg, transparent 75%, #fff9e6 75%);
+        background-size: 20px 20px;
+        background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+      }
+
+      .credit {
+        margin-top: 2rem;
+        padding: 1rem;
+        border: var(--border);
+        border-radius: 8px;
+        background: white;
+        text-align: center;
+        font-size: 0.9rem;
+        box-shadow: 4px 4px 0 #000;
+      }
+
+      .credit a {
+        color: #ff6b6b;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .credit a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 1rem;
+        }
+
+        h1 {
+          font-size: 1.5rem;
+        }
+
+        select,
+        button {
+          width: 100%;
+        }
+      }
+
+      /* 90s-style animations */
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .joke-container::after {
+        content: "✨";
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        font-size: 1.5rem;
+        animation: bounce 1s infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>JOKEYTOONS 3000</h1>
+
+      <div class="controls">
+        <select id="category">
+          <option value="common">Regular Jokes</option>
+          <option value="doctor">Doc Jokes</option>
+          <option value="engineer">Nerd Jokes</option>
+          <option value="family">Family Fun</option>
+          <option value="clean">Clean Laffs</option>
+          <option value="relationship">Lovey-Dovey</option>
+          <option value="insult">Burn Central</option>
+          <option value="dark">Spooky Stuff</option>
+        </select>
+        <button onclick="getJoke()">GET JOKE!</button>
+      </div>
+
+      <div class="joke-container" id="jokeDisplay">
+        👾 PRESS THE BUTTON FOR LAFFS! 👾
+      </div>
+    </div>
+
+    <div class="credit">
+      Created by
+      <a href="https://www.instagram.com/hardik_joshi14/" target="_blank"
+        >Hardik Joshi</a
+      >
+      with 💥POW!💥
+    </div>
+
+    <script>
+      const API_KEY = "ddd9198c85mshf2f5136dec62888p1eccfajsn01ebe2b8e744";
+      const API_HOST = "jokes-always.p.rapidapi.com";
+
+      async function getJoke() {
+        const category = document.getElementById("category").value;
+        const jokeDisplay = document.getElementById("jokeDisplay");
+
+        jokeDisplay.innerHTML = "📠 LOADING JOKE... 📠";
+        jokeDisplay.style.animation = "bounce 0.5s ease 2";
+
+        try {
+          const response = await fetch(
+            `https://jokes-always.p.rapidapi.com/${category}`,
+            {
+              method: "GET",
+              headers: {
+                "x-rapidapi-key": API_KEY,
+                "x-rapidapi-host": API_HOST,
+              },
+            }
+          );
+
+          if (!response.ok) throw new Error("Joke machine jammed!");
+
+          const data = await response.json();
+          jokeDisplay.textContent = data.data;
+          jokeDisplay.style.animation = "none";
+        } catch (error) {
+          jokeDisplay.innerHTML = "💥 ERROR! INSERT COIN AND TRY AGAIN 💥";
+          setTimeout(() => {
+            jokeDisplay.textContent = "👾 PRESS THE BUTTON FOR LAFFS! 👾";
+          }, 2000);
+          console.error(error);
+        }
+      }
+    </script>
+  </body>
+</html>
